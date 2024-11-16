@@ -29,4 +29,10 @@ export const SITE_CONFIG = {
       },
     ],
   },
+  signInPage: {
+    fields: [
+      { name: 'Email', type: 'email', placeholder: 'Enter your email', required: true },
+      { name: 'Password', type: 'password', placeholder: 'Enter your password', required: true },
+    ],
+  },
 };
