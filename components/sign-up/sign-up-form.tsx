@@ -2,7 +2,7 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react';
+import { Check, Eye, EyeOff, X } from 'lucide-react';
 import useSignUpForm from '@/hooks/useSignUpForm';
 
 interface SignUpFormProps {
@@ -70,9 +70,13 @@ function SignUpForm({ SignUpFormFields }: SignUpFormProps) {
                   {name === 'Confirm Password' &&
                     getValue(name) &&
                     (!checkConfirmPassword(name) ? (
-                      <div className="text-sm text-red-500">Passwords do not match</div>
+                      <div className="text-sm text-red-500 flex items-center gap-2">
+                        <X className="size-4" /> Passwords do not match
+                      </div>
                     ) : (
-                      <div className="text-sm text-green-500">Passwords match</div>
+                      <div className="text-sm text-green-500 flex items-center gap-2">
+                        <Check className="size-4" /> Passwords match
+                      </div>
                     ))}
                 </div>
               </div>
