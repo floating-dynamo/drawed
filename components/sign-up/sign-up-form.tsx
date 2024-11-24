@@ -68,6 +68,7 @@ function SignUpForm({ SignUpFormFields }: SignUpFormProps) {
                 </div>
                 <div>
                   {name === 'Confirm Password' &&
+                    getValue(name) &&
                     (!checkConfirmPassword(name) ? (
                       <div className="text-sm text-red-500">Passwords do not match</div>
                     ) : (
