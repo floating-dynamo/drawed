@@ -20,7 +20,7 @@ function SignUpForm({ SignUpFormFields }: SignUpFormProps) {
     checkConfirmPassword,
   } = useSignUpForm();
   return (
-    <div className="flex items-center md:justify-center flex-col min-h-screen md:bg-slate-200 bg-white py-4">
+    <div className="flex items-center md:justify-center flex-col min-h-screen md:bg-slate-200 bg-white py-0 md:py-4">
       <div className="flex justify-center flex-col sm:min-w-96 min-w-56 md:bg-white px-8 py-12  gap-12 rounded-md">
         <div>
           <p className="font-bold text-xl md:text-3xl text-primary">Sign Up</p>

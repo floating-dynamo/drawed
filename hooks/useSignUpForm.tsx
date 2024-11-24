@@ -49,9 +49,10 @@ const useSignUpForm = () => {
 
   function checkConfirmPassword(name: string) {
     if (name === 'Confirm Password' && confirmPassword && password) return confirmPassword === password;
+    return false;
   }
 
-  const disableSignUpButton = !email || !password || !confirmPassword;
+  const disableSignUpButton = !email || !password || !confirmPassword || !checkConfirmPassword('Confirm Password');
 
   return {
     getValue,
