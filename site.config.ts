@@ -35,4 +35,12 @@ export const SITE_CONFIG = {
       { name: 'Password', type: 'password', placeholder: 'Enter your password', required: true },
     ],
   },
+  signUpPage: {
+    fields: [
+      { name: 'Email', type: 'email', placeholder: 'Enter your email', required: true },
+      // { name: 'Username', type: 'text', placeholder: 'Enter your username', required: true },
+      { name: 'Password', type: 'password', placeholder: 'Enter your password', required: true },
+      { name: 'Confirm Password', type: 'password', placeholder: 'Confirm your password', required: true },
+    ],
+  },
 };

@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
 
-const useSignInForm = () => {
+const useSignUpForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
 
   function getValue(name: string): string {
@@ -12,6 +13,8 @@ const useSignInForm = () => {
         return email;
       case 'password':
         return password;
+      case 'confirm password':
+        return confirmPassword;
       default:
         return '';
     }
@@ -25,14 +28,18 @@ const useSignInForm = () => {
       case 'password':
         setPassword(value);
         break;
+      case 'confirm password':
+        setConfirmPassword(value);
+        break;
       default:
     }
   }
 
-  function handleSignInSubmit() {
+  function handleSignUpSubmit() {
     console.log({
       email,
       password,
+      confirmPassword,
     });
   }
 
@@ -40,9 +47,21 @@ const useSignInForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const disableSignInButton = !email || !password;
+  function checkConfirmPassword(name: string) {
+    if (name === 'Confirm Password') return confirmPassword === password;
+  }
 
-  return { getValue, setValue, handleSignInSubmit, togglePasswordVisibility, showPassword, disableSignInButton };
+  const disableSignUpButton = !email || !password || !confirmPassword;
+
+  return {
+    getValue,
+    setValue,
+    handleSignUpSubmit,
+    togglePasswordVisibility,
+    showPassword,
+    disableSignUpButton,
+    checkConfirmPassword,
+  };
 };
 
-export default useSignInForm;
+export default useSignUpForm;
