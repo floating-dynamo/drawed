@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
       </div>
       {openMenu && (
-        <div className="bg-white md:hidden flex flex-col justify-center p-4 gap-4 transition-all">
+        <div className="bg-white md:hidden flex flex-col justify-center p-4 gap-4 transition-all border-b-2">
           <NavbarItems toggleMenuDrawer={toggleMenuDrawer} />
         </div>
       )}
