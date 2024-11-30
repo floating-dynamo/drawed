@@ -41,6 +41,22 @@ const Navbar = () => {
 };
 
 function NavbarItems({ toggleMenuDrawer }: { toggleMenuDrawer?: () => void }) {
+  const isSignedIn = true;
+  if (isSignedIn) {
+    return (
+      <div className='flex gap-6 items-center'>
+        <Link href={'/dashboard'} className="text-slate-600">
+          Dashboard
+        </Link>
+        <Button onClick={toggleMenuDrawer} variant={'destructive'}>
+          <Link href={'/sign-up'} className="w-full">
+            Sign Out
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <>
       <Button variant={'outline'} onClick={toggleMenuDrawer}>
