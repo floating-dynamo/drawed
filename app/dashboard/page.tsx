@@ -1,36 +1,47 @@
 'use client';
 import DrawingCompleteAlert from '@/components/dashboard/drawing-complete-alert';
 import { Button } from '@/components/ui/button';
-import { DASHBOARD_IMAGES } from '@/lib/constants';
-import { Check, RefreshCw, Settings2 } from 'lucide-react';
+import axios from 'axios';
+import { Check, Loader, RefreshCw, Settings2 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
   const [streak, setStreak] = useState<number>(0);
   const [image, setImage] = useState<string>('');
-  const [promptsLeftForTheDay, setPromptsLeftForTheDay] = useState(3);
+  const [imagesLeftForTheDay, setimagesLeftForTheDay] = useState(3);
   const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchRandomImage = async () => {
+    try {
+      const query = 'sketch';
+
+      setIsLoading(true);
+      const result = await axios.get('/api/fetchImage', {
+        params: {
+          query,
+        },
+      });
+      const imageUrl = result.data.imageData.imageUrl;
+      setImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setImage(getRandomImage(DASHBOARD_IMAGES));
+    fetchRandomImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function getRandomImage(images: string[]) {
-    let randomIndex = Math.floor(Math.random() * images.length);
-    if (images[randomIndex] === image && randomIndex < images.length - 1) {
-      randomIndex++;
-    } else if (images[randomIndex] === image && randomIndex == images.length - 1) {
-      randomIndex = 0;
-    }
-    return images[randomIndex];
-  }
-
   function getNewImage() {
-    if (promptsLeftForTheDay > 0) {
-      setPromptsLeftForTheDay((prev) => prev - 1);
-      setImage(getRandomImage(DASHBOARD_IMAGES));
+    if (imagesLeftForTheDay > 0) {
+      setimagesLeftForTheDay((prev) => prev - 1);
+      fetchRandomImage();
     }
   }
 
@@ -43,8 +54,12 @@ export default function DashboardPage() {
 
   function renderImage() {
     return (
-      <div>
-        <p className="md:font-normal font-semibold md:text-xl">{image}</p>
+      <div className="flex items-center justify-center min-w-64 min-h-64">
+        {!image || isLoading ? (
+          <Loader className="animate-spin size-5" />
+        ) : (
+          <Image src={image} alt={image} width={400} height={350} className="rounded-md" />
+        )}
       </div>
     );
   }
@@ -70,8 +85,8 @@ export default function DashboardPage() {
   function renderButtons() {
     return (
       <>
-        <Button variant="outline" onClick={getNewImage} disabled={!promptsLeftForTheDay || isComplete}>
-          <RefreshCw /> New Prompt ({promptsLeftForTheDay} left)
+        <Button variant="outline" onClick={getNewImage} disabled={!imagesLeftForTheDay || isComplete}>
+          <RefreshCw /> New Image ({imagesLeftForTheDay} left)
         </Button>
         <Button onClick={markDrawingCompleted} disabled={isComplete}>
           <Check /> Complete Drawing

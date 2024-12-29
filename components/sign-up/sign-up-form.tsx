@@ -88,9 +88,9 @@ function SignUpForm({ SignUpFormFields }: SignUpFormProps) {
         </Button>
         <div>
           <p className="text-muted-foreground text-center">
-            Don&apos;t have an account?
-            <Link href={'/sign-up'} className="text-black hover:underline ml-1">
-              Sign up
+            Already have an account?
+            <Link href={'/sign-in'} className="text-black hover:underline ml-1">
+              Login
             </Link>
           </p>
         </div>
